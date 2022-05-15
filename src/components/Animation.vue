@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 import * as PIXI from 'pixi.js'
 import Particle from '../data/Particle'
-
-defineProps<{ msg: string }>()
 
 let app = new PIXI.Application({
     resolution: devicePixelRatio,
@@ -36,7 +34,7 @@ function addParticle(count_added: number) {
     count.value += count_added;
 }
 
-document.getElementById("app")?.appendChild(app.view)
+document.getElementById("pixi-layer")?.appendChild(app.view)
 
 app.ticker.add(function (_) {
     for (let i of particles.value) {
@@ -44,20 +42,13 @@ app.ticker.add(function (_) {
     }
 });
 
+
+onMounted(() => {
+    addParticle(20)
+})
+
 </script>
 
 <template>
     <button type="button" @click="addParticle(20)">count is: {{ count }}</button>
 </template>
-
-<style>
-#id {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-#id {
-    display: block;
-}
-</style>

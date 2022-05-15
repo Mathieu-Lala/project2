@@ -1,19 +1,18 @@
 <script>
+// import CommuneEntry from '../data/CommuneEntry';
+
 export default {
+    props: {
+        communes: Array,
+    },
     data() {
         return {
-            products: [
-                { id: 1, name: "Foo" },
-                { id: 2, name: "Bar" },
-                { id: 3, name: "Baz" },
-                { id: 4, name: "Foobar" }
-            ],
-            search: ""
+            search: "",
         };
     },
     computed: {
-        filteredProducts() {
-            return this.products.filter(p => {
+        filteredCommunes() {
+            return this.communes.filter(p => {
                 return p.name.toLowerCase().indexOf(this.search.toLowerCase()) != -1;
             });
         }
@@ -28,14 +27,12 @@ export default {
     <table class="table" id="myTable">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Nom</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="product in filteredProducts" :key="product.id">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
+            <tr v-for="commune in filteredCommunes.slice(0, 10)" :key="commune.name">
+                <td>{{ commune.name }}</td>
             </tr>
         </tbody>
     </table>
